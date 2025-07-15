@@ -1,5 +1,4 @@
 {
-  "dingllm.nvim": { "branch": "master", "commit": "ecfe8c6b23b18947849c9cd109ad9bd8d1804a0b" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "lualine.nvim": { "branch": "master", "commit": "a94fc68960665e54408fe37dcf573193c4ce82c9" },
   "nvim-tree.lua": { "branch": "master", "commit": "b0b49552c9462900a882fe772993b01d780445fe" },

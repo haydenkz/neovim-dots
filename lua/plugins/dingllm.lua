@@ -1,5 +1,7 @@
  return {
     'haydenkz/dingllm.nvim',
+    dir = '~/.config/nvim/lua/plugins/custom/dingllm.nvim/',
+    dev = true,
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local system_prompt =
@@ -111,6 +113,24 @@
         }, dingllm.make_anthropic_spec_curl_args, dingllm.handle_anthropic_spec_data)
       end
 
+      local function gemini_replace()
+        dingllm.invoke_llm_and_stream_into_editor({
+          url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse',
+          api_key_name = 'GEMINI_API_KEY', 
+          system_prompt = system_prompt,
+          replace = true,
+        }, dingllm.make_gemini_spec_curl_args, dingllm.handle_gemini_spec_data)
+      end
+
+      local function gemini_help()
+        dingllm.invoke_llm_and_stream_into_editor({
+          url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse',
+          api_key_name = 'GEMINI_API_KEY',
+          system_prompt = helpful_prompt,
+          replace = false,
+        }, dingllm.make_gemini_spec_curl_args, dingllm.handle_gemini_spec_data)
+      end
+
       vim.keymap.set({ 'n', 'v' }, '<leader>k', groq_replace, { desc = 'llm groq' })
       vim.keymap.set({ 'n', 'v' }, '<leader>K', groq_help, { desc = 'llm groq_help' })
       vim.keymap.set({ 'n', 'v' }, '<leader>L', llama405b_help, { desc = 'llm llama405b_help' })
@@ -118,5 +138,7 @@
       vim.keymap.set({ 'n', 'v' }, '<leader>I', anthropic_help, { desc = 'llm anthropic_help' })
       vim.keymap.set({ 'n', 'v' }, '<leader>i', anthropic_replace, { desc = 'llm anthropic' })
       vim.keymap.set({ 'n', 'v' }, '<leader>o', llama_405b_base, { desc = 'llama base' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>g', gemini_replace, { desc = 'llm gemini' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>G', gemini_help, { desc = 'llm gemini_help' })
     end,
   }
